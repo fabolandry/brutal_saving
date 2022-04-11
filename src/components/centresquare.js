@@ -1,4 +1,7 @@
+
+
 function CentreSquare() {
+
     return (
         <div className="mainsquare">
             <p className="description">
@@ -6,7 +9,7 @@ function CentreSquare() {
                 That Smart Contract keeps your money 
                 from anyone in the world 
                 (You included) and pays you back 
-                at a set date. 
+                at a set date.
             </p>
             <form>
                 <label> Amount (in Eth) : </label>
