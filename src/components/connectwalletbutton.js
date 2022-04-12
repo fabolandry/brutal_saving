@@ -1,25 +1,7 @@
-import {useState} from 'react';
 
-const Connectwalletbutton = () => {
-    const [currentAccount, setcurrentAccount] = useState(null);
 
-    const connectWalletHandler = async (event) => {
-        event.preventDefault();
-        const { ethereum } = window;
+const Connectwalletbutton = ({connectWalletHandler, currentAccount, setcurrentAccount}) => {
     
-        if (!ethereum) {
-          alert("Please install Metamask!");
-        }
-    
-        try {
-          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-          console.log("Found an account! Address: ", accounts[0]);
-          setcurrentAccount(accounts[0]);
-          console.log(currentAccount);
-        } catch (err) {
-          console.log(err)
-        }
-      }
     return (
           <div>
               <button onClick={connectWalletHandler} className='connectwalletbutton'>{currentAccount
