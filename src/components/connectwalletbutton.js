@@ -1,6 +1,6 @@
 
 
-const Connectwalletbutton = ({connectWalletHandler, currentAccount, setcurrentAccount}) => {
+const Connectwalletbutton = ({connectWalletHandler, currentAccount}) => {
     
     return (
           <div>
