@@ -1,3 +1,4 @@
+import React  from 'react';
 import Connectwalletbutton from "./components/connectwalletbutton";
 import CentreSquare from "./components/centresquare";
 import {useState} from 'react';
@@ -31,7 +32,7 @@ function App() {
                     <p className="title"> Brutal Saving </p>
                     <Connectwalletbutton connectWalletHandler={connectWalletHandler} currentAccount={currentAccount} setcurrentAccount={setcurrentAccount}  />
                 </div>
-                <CentreSquare />
+                <CentreSquare currentAccount={currentAccount}/>
                 <div className="footer"></div>
             </div>
             );
