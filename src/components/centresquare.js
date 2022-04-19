@@ -1,19 +1,38 @@
-import React from 'react';
-import web3 from '../web3';
+import React, {useState} from 'react';
+import web3c from '../web3';
 import Brutalsaving from '../abis/Brutalsaving';
+
+//var schedule = require('node-schedule');
+
 
 
 function CentreSquare({currentAccount}) {
-    async function asyncCall() {
-        const contract = new web3.eth.Contract(
-            Brutalsaving.abi,
-            "0x91aE75daA209e6782f0996527721B9442c658625"
-        );
-        console.log(contract);
+    const [amount, setAmount] = useState('');
+    const [Pdate, setPdate] = useState('');
+    const contract = new web3c.eth.Contract(
+        Brutalsaving.abi,
+        "0xd846f898E3861CeF974217cD31483171e2051A04"
+    );
+    
+    async function asyncCall2() {
         await contract.methods
-            .fund()
-            .send({from : currentAccount, value: "1000000000"});
+            .withdraw()
+            .send({from : currentAccount});
     }
+
+    async function asyncCall() {
+        //const TPdate = new Date(Pdate);
+        const unlockDate = parseInt((new Date(Pdate).getTime() / 1000).toFixed(0))
+        console.log(unlockDate);
+        const weiAmount = amount * 1000000000000000000;
+        //schedule.scheduleJob(TPdate, asyncCall2);
+        console.log('Widthdrawal scheduled on the ', Pdate);
+        await contract.methods
+            .fund(unlockDate)
+            .send({from : currentAccount, value: weiAmount});
+    };
+
+
     return (
         <div className="mainsquare">
             <p className="description">
@@ -25,15 +44,29 @@ function CentreSquare({currentAccount}) {
             </p>
             <form>
                 <label> Amount (in Eth) : </label>
-                <input type="text"  required/>
+                <input 
+                    type="text" 
+                    value = {amount}
+                    onChange={event => setAmount(event.target.value)} 
+                    required
+                    />
             </form>
             <form>
                 <label> Payback Date : </label>
-                <input className="date-pick" type="datetime-local"  required/>
+                <input 
+                    className="date-pick" 
+                    type="datetime-local"
+                    value = {Pdate}
+                    onChange={event => setPdate(event.target.value)}   
+                    required
+                    />
             </form>
-            <button  onClick={asyncCall} className='submitbutton'>Send Transaction</button>   
+            <div className="buttondiv">
+                <button  onClick={asyncCall} className='submitbutton'>Send</button> 
+                <button onClick={asyncCall2} className='submitbutton'>Withdraw</button>
+            </div>  
         </div>
     )
 }
 
-export default CentreSquare
+export default CentreSquare;

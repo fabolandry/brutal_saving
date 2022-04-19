@@ -132,6 +132,13 @@ label {
     align-self: center;
 }
 
+.buttondiv {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin: 15px;
+}
+
 .submitbutton:active,
 .connectwalletbutton:active {
     background-color: rgba(44, 44, 44, 0.58);
