@@ -1,23 +1,23 @@
 import React, {useState} from 'react';
-import web3c from '../web3';
+import Web3 from 'web3';
 import Brutalsaving from '../abis/Brutalsaving';
 
-//var schedule = require('node-schedule');
-
-
+const web3 = new Web3(window.ethereum);
 
 function CentreSquare({currentAccount}) {
+
     const [amount, setAmount] = useState('');
     const [Pdate, setPdate] = useState('');
-    const contract = new web3c.eth.Contract(
+    const contract = new web3.eth.Contract(
         Brutalsaving.abi,
-        "0xd846f898E3861CeF974217cD31483171e2051A04"
+        "0xBc9955cdb0Ce58651079A9d592D8950Cfc0853Ad"
     );
     
     async function asyncCall2() {
-        await contract.methods
+        const withdrawMsg = await contract.methods
             .withdraw()
             .send({from : currentAccount});
+        console.log(withdrawMsg);
     }
 
     async function asyncCall() {
