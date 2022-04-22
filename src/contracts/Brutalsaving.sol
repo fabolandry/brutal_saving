@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.0;
 
 contract BrutalSaving {
@@ -13,12 +14,13 @@ contract BrutalSaving {
     }
 
     function withdraw() public payable returns (string memory withrawmsg) {
-        require(msg.sender == currentAddress);
+        currentAddress = msg.sender;
         if (block.timestamp < unlockDate) {
-            return "Cannot withdraw yet";
+            withrawmsg = "Cannot withdraw yet";
+            return withrawmsg;
         } else {
         address payable payable_addr = payable(currentAddress);
-        payable_addr.transfer(address(this).balance);
+        payable_addr.transfer(addressToAmountFunded[currentAddress]);
         }
     }
 

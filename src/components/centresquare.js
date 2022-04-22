@@ -10,7 +10,7 @@ function CentreSquare({currentAccount}) {
     const [Pdate, setPdate] = useState('');
     const contract = new web3.eth.Contract(
         Brutalsaving.abi,
-        "0xBc9955cdb0Ce58651079A9d592D8950Cfc0853Ad"
+        "0x95a082998393a19cbAFBF204A916168730f5B344"
     );
     
     async function asyncCall2() {
