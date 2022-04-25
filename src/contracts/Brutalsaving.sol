@@ -2,25 +2,45 @@
 pragma solidity ^0.8.0;
 
 contract BrutalSaving {
-    mapping(address => uint256) public addressToAmountFunded;
-    address public currentAddress;
-    uint256 public unlockDate;
-    uint256 public currentTime = block.timestamp;
 
+    mapping(address => uint256) public addressToAmountFunded; 
+    //get the amount funded by an address
+    struct TransactionD {
+        uint256 Amount;
+        uint256 Wdate;
+        uint256 Ttime;
+    }
+    //collect transaction data 
+    mapping (address => TransactionD) Ttransactions;
+    //Map adrress to transaction data collected 
+    address[] public TransactionData;
+    //Save all address send fund in a array
     function fund(uint256 _unlockDate) public payable {
-        unlockDate = _unlockDate;
-        currentAddress = msg.sender;
-        addressToAmountFunded[msg.sender] += msg.value;
+        TransactionD storage transac = Ttransactions[msg.sender]; //Add new transaction to mapping and struct
+        addressToAmountFunded[msg.sender] += msg.value; //Add 
+        transac.Amount = msg.value;
+        transac.Wdate = _unlockDate;
+        transac.Ttime = block.timestamp;
+        TransactionData.push(msg.sender);
+    }
+
+    function getTransac() view public returns(address[] memory) {
+        return TransactionData;
+    }
+
+    function getWdate(address _address) view public returns (uint) {
+        return Ttransactions[_address].Wdate;
     }
 
     function withdraw() public payable returns (string memory withrawmsg) {
-        currentAddress = msg.sender;
-        if (block.timestamp < unlockDate) {
+        if (block.timestamp < getWdate(msg.sender)) {
             withrawmsg = "Cannot withdraw yet";
             return withrawmsg;
         } else {
-        address payable payable_addr = payable(currentAddress);
-        payable_addr.transfer(addressToAmountFunded[currentAddress]);
+            address payable payable_addr = payable(msg.sender);
+            uint256 wAmount = addressToAmountFunded[msg.sender];
+            payable_addr.transfer(wAmount);
+            addressToAmountFunded[msg.sender] -= wAmount;
         }
     }
 

@@ -10,7 +10,7 @@ function CentreSquare({currentAccount}) {
     const [Pdate, setPdate] = useState('');
     const contract = new web3.eth.Contract(
         Brutalsaving.abi,
-        "0x95a082998393a19cbAFBF204A916168730f5B344"
+        "0x9E4b90755699D91e4edE9751569A3Ec84bef0d7E"
     );
     
     async function asyncCall2() {
@@ -36,11 +36,9 @@ function CentreSquare({currentAccount}) {
     return (
         <div className="mainsquare">
             <p className="description">
-                You create a Smart Contract, 
-                That Smart Contract keeps your money 
-                from anyone in the world 
-                (You included) and pays you back 
-                at a set date.
+                This smart contract save your money until a certain date.
+                You can use different account and different dates.
+                The last Payback date sent is the one kept in the contract. 
             </p>
             <form>
                 <label> Amount (in Eth) : </label>
