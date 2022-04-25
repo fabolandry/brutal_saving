@@ -9,13 +9,12 @@ module.exports = {
     port: 7545,            // Standard Ethereum port (default: none)
     network_id: "*",       // Any network (default: none)
     },
-    rinkeby: {
+    maticmainnet: {
       provider: function() {
         return new HDWalletProvider(mnemonic,
-          "https://rinkeby.infura.io/v3/d76dd88efd4c40649ee1716420ebef5c");
+          "https://polygon-mainnet.infura.io/v3/d76dd88efd4c40649ee1716420ebef5c");
       },
-      network_id: 4,
-      timeoutBlocks: 200
+      network_id: 137,
     }  
   },
   contracts_directory : './src/contracts/',
