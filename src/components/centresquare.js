@@ -10,13 +10,16 @@ function CentreSquare({currentAccount}) {
     const [Pdate, setPdate] = useState('');
     const contract = new web3.eth.Contract(
         Brutalsaving.abi,
-        "0x9E4b90755699D91e4edE9751569A3Ec84bef0d7E"
+        "0xF39eEdA921Dd5FD698352b14f0cCDD2f0eBba057"
     );
     
     async function asyncCall2() {
         const withdrawMsg = await contract.methods
             .withdraw()
-            .send({from : currentAccount});
+            .send({
+                from : currentAccount,
+                gas: '100000000'
+            });
         console.log(withdrawMsg);
     }
 
@@ -37,8 +40,8 @@ function CentreSquare({currentAccount}) {
         <div className="mainsquare">
             <p className="description">
                 This smart contract save your money until a certain date.
-                You can use different account and different dates.
-                The last Payback date sent is the one kept in the contract. 
+                You can use different accounts and different dates.
+                The last Payback date sets is the one kept in the contract. 
             </p>
             <form>
                 <label> Amount (in Eth) : </label>
